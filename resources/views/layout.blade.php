@@ -24,25 +24,41 @@
                 },
             };
         </script>
-        <title>LaraGigs | Find Laravel Jobs & Projects</title>
+        <title>NETFLEX</title>
     </head>
-    <body class="mb-48">
+    <body class="mb-48 bg-black">
         <nav class="flex justify-between items-center mb-4">
             <a href="/listings"
                 ><img class="w-24"src="{{asset('images/logo.png')}}" alt="" class="logo"
             /></a>
             <ul class="flex space-x-6 mr-6 text-lg">
+                @auth
                 <li>
-                    <a href="register.html" class="hover:text-laravel"
+                    <span class="font-bold uppercase text-white">
+                        Welcome {{auth()->user()->name}}
+                    </span>
+                </li>
+                <li>
+                    <form action="/logout" method="POST" class="inline text-white">
+                    @csrf
+                    <button type="submit">
+                        <i class="fa-solid fa-door-closed"></i> Loguot
+                    </button>
+                    </form>
+                </li>
+                @else
+                <li>
+                    <a href="/register" class="text-white hover:text-laravel"
                         ><i class="fa-solid fa-user-plus"></i> Register</a
                     >
                 </li>
                 <li>
-                    <a href="login.html" class="hover:text-laravel"
+                    <a href="/login" class="text-white hover:text-laravel"
                         ><i class="fa-solid fa-arrow-right-to-bracket"></i>
                         Login</a
                     >
                 </li>
+                @endauth
             </ul>
         </nav>
 <main>
@@ -51,12 +67,12 @@
     <footer
     class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center"
 >
-    <p class="ml-2">Copyright &copy; 2022, All Rights reserved</p>
+    <p class="ml-2">All Copyright &copy; <span class="text-black font-bold">ABD</span> reserved 2022</p>
 
     <a
-        href="create.html"
+        href="/listings/create"
         class="absolute top-1/3 right-10 bg-black text-white py-2 px-5"
-        >Post Job</a
+        >Post Movie</a
     >
 </footer>
 </body>

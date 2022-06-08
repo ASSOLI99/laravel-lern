@@ -11,7 +11,7 @@
     >
         <img
             class="w-48 mr-6 mb-6"
-            src="{{asset('images/no-image.png')}}"
+            src="{{$listing->logo ? asset('storage/' . $listing->logo) :asset('/images/no-image.png')}}"
             alt=""
         />
 
@@ -37,35 +37,22 @@
         <div class="border border-gray-200 w-full mb-6"></div>
         <div>
             <h3 class="text-3xl font-bold mb-4">
-                Job Description
+                Movie Description
             </h3>
             <div class="text-lg space-y-6">
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur
-                    adipisicing elit. Eligendi non reprehenderit
-                    facilis architecto autem quam
-                    necessitatibus, odit quod, repellendus
-                    voluptate cum. Necessitatibus a id tenetur.
-                    Error numquam at modi quaerat.
-                </p>
-                <p>
-                    Lorem, ipsum dolor sit amet consectetur
-                    adipisicing elit. Quaerat praesentium eos
-                    consequuntur ex voluptatum necessitatibus
-                    odio quos cupiditate iste similique rem in,
-                    voluptates quod maxime animi veritatis illum
-                    quo sapiente.
+                    {{$listing->description}}
                 </p>
 
                 <a
-                    href="mailto:test@test.com"
+                    href="mailto:{{$listing->email}}"
                     class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80"
                     ><i class="fa-solid fa-envelope"></i>
                     Contact Employer</a
                 >
 
                 <a
-                    href=":{{$listing->website}}"
+                    href="{{$listing->website}}"
                     target="_blank"
                     class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
                     ><i class="fa-solid fa-globe"></i> Visit
@@ -74,6 +61,21 @@
             </div>
         </div>
     </div>
+    @if($listing->user_id == auth()->user()->id)
+    <div class="mt-4 p-2 flex space-x-6 bg-white justify-center">
+        <a href="/listings/{{$listing->id}}/edit">
+            <i class="fa-solid fa-pencil"></i> Edit
+        </a>
+    </div>
+    
+    <form method="POST" class="mt-4 p-2 flex space-x-6 bg-white justify-center" action="/listings/{{$listing->id}}">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
+    </form>
+     
+    @endif
+
 </div>
 </div>
 @endsection
